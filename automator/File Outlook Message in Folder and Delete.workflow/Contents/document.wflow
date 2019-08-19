@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplicationBuild</key>
+	<string>444.7</string>
+	<key>AMApplicationVersion</key>
+	<string>2.8</string>
+	<key>AMDocumentVersion</key>
+	<string>2</string>
+	<key>actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>use scripting additionsuse framework "Foundation"property NSString : a reference to current application's NSString-- add leading zeros to date componentson pad(n)	return text -2 thru -1 of ("00" &amp; n)end pad-- remove character from stringon removeString(remove_string, source_string)	set s_String to NSString's stringWithString:source_string	set r_String to NSString's stringWithString:remove_string	return s_String's stringByReplacingOccurrencesOfString:r_String withString:""end removeStringon run {input, parameters}			tell application "Microsoft Outlook"				-- get the currently selected message or messages		set selectedMessages to current messages				-- if there are no messages selected, warn the user and then quit		if selectedMessages is {} then			display dialog "Please select a message." with icon 1			return		end if				-- select folder		-- set folderName to quoted form of POSIX path of (choose folder)		set folderName to (choose folder) as string				-- display dialog "Selected folder is:" &amp; return &amp; folderName buttons {"OK"} default button 1				-- save email messages one by one		repeat with theMessage in selectedMessages			get properties of theMessage			log properties			-- get timestamp of message			set {year:y, month:m, day:d, hours:h, minutes:min} to theMessage's time sent			set theName to subject of theMessage			set timeStamp to ("" &amp; y &amp; "-" &amp; my pad(m as integer) &amp; "-" &amp; my pad(d) &amp; "_" &amp; my pad(h) &amp; my pad(min))			set fileName to ("" &amp; timeStamp &amp; "_" &amp; theName)			-- display dialog "Selected file name is:" &amp; return &amp; fileName buttons {"OK"} default button 1			-- save theMessage in file (POSIX path of folderName &amp; fileName &amp; ".eml")			set fullFileName to folderName &amp; (my removeString(":", fileName)) &amp; ".eml"			-- display dialog "Selected file name is:" &amp; return &amp; fullFileName buttons {"OK"} default button 1			save theMessage in file fullFileName -- save the message to the desired folder			delete theMessage -- puts the message in the Deleted Items folder		end repeat			end tell			return inputend run</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>800F0728-2A9A-4FBE-B07D-910D5B6D1D34</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>4C4269CF-05A6-41FF-B5CF-4DFE8ACD6F13</string>
+				<key>UUID</key>
+				<string>CCE3EE9E-86E7-4EB3-826C-6DF241012FD4</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>529.000000:568.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+	</array>
+	<key>connectors</key>
+	<dict/>
+	<key>workflowMetaData</key>
+	<dict>
+		<key>serviceApplicationBundleID</key>
+		<string>com.microsoft.Outlook</string>
+		<key>serviceApplicationPath</key>
+		<string>/Applications/Microsoft Outlook.app</string>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
+		<key>workflowTypeIdentifier</key>
+		<string>com.apple.Automator.servicesMenu</string>
+	</dict>
+</dict>
+</plist>
